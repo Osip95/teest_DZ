@@ -1,18 +1,18 @@
 public class SecondsPrinter implements Runnable {
 
-    private Seconds msg;
+    private Seconds seconds;
 
-    public SecondsPrinter(Seconds m) {
-        this.msg = m;
+    public SecondsPrinter(Seconds seconds) {
+        this.seconds = seconds;
     }
 
     @Override
     public void run() {
         while (true) {
-            synchronized (msg) {
+            synchronized (seconds) {
                 try {
-                    System.out.println("С начала сессии прошло " + msg.getSeconds() + " секунд");
-                    msg.wait();
+                    System.out.println("С начала сессии прошло " + seconds.getSeconds() + " секунд");
+                    seconds.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

@@ -1,22 +1,22 @@
 public class PeriodPrinter implements Runnable {
-    private Seconds msg;
+    private Seconds seconds;
     private final int period;
 
-    public PeriodPrinter(Seconds m, int period) {
-        this.msg = m;
+    public PeriodPrinter(Seconds seconds, int period) {
+        this.seconds = seconds;
         this.period = period;
     }
 
     @Override
     public void run() {
         while (true) {
-            synchronized (msg) {
+            synchronized (seconds) {
                 try {
-                    msg.wait();
+                    seconds.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                if (msg.getSeconds() % period == 0) {
+                if (seconds.getSeconds() % period == 0) {
                     System.out.println("Сообщение каждые " + period + " секунд");
                 }
             }

@@ -1,24 +1,24 @@
 public class Chronometer implements Runnable {
 
-    private Seconds msg;
+    private Seconds seconds;
 
-    public Chronometer(Seconds msg) {
-        this.msg = msg;
+    public Chronometer(Seconds seconds) {
+        this.seconds = seconds;
     }
 
     @Override
     public void run() {
-        int seconds;
+        int time;
         while (true) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            seconds = (int) (System.currentTimeMillis() - Main.startTime) / 1000;
-            synchronized (msg) {
-                msg.setSeconds(seconds);
-                msg.notifyAll();
+            time = (int) (System.currentTimeMillis() - Main.startTime) / 1000;
+            synchronized (seconds) {
+                seconds.setSeconds(time);
+                seconds.notifyAll();
             }
 
         }
